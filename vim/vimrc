@@ -1,0 +1,71 @@
+set nocompatible
+filetype plugin indent on     " activates filetype detection
+syntax on                     " activates syntax highlighting among other things
+
+" **** UI Configs ************
+set titlestring=%t  " title of the vim window (set to the filename)
+set title           " sets the title specified above
+set expandtab       " tabs are spaces not <TAB> or /t
+set tabstop=2       " visual space representation of tabs
+set softtabstop=2   " spaces used for tab when editing 
+set shiftwidth=2    " no of spaces a level of indentation is
+set scrolloff=8     " number of lines after the cursor before the screen scrolls down
+set smartindent     " autoindents new line 
+set number          " enable number lines
+set relativenumber  " enable relative number lines
+set nowrap          " don't wrap to next line when text crosses window width
+set noerrorbells    " No annoying dingding sounds on errors
+set wildmenu        " menu for wildcard files 
+set termguicolors   " makes colors in the terminal more vibrant. Try disabling this to see what I mean
+
+" **** Searching Configs ************
+set hlsearch        " highlights matching search values
+set incsearch       " values get incrementally highlighted as you type
+
+" **** Backup Configs ************
+set backup
+set writebackup 
+set directory=~/.vim/swapfile//
+set backupdir=~/.vim/backup//
+
+"**** Linting Config ***************
+" Syntax highlighting for individual language packs can be disabled by setting g:polyglot_disabled
+" let g:polyglot_disabled = ['markdown']
+
+" This sets 'eslint' as your only linter and fixer for javascript files
+let g:ale_linters = {
+      \'javascript' : ['eslint'],
+      \}
+let b:ale_fixers = {'javascript': ['prettier', 'eslint']}
+
+let g:ale_sign_error = '♠'
+let g:ale_sign_warning = '♠'
+
+" Automatic linting and fixing on save
+let g:ale_lint_on_save = 1
+let g:ale_fix_on_save = 1
+
+" navigate between errors quickly
+nmap <silent> <C-j>  <Plug>(ale_previous_wrap)
+nmap <silent> <C-k>  <Plug>(ale_next_wrap)
+nmap <C-f> <Plug>(ale_fix)
+
+let g:airline_powerline_fonts = 1   " Enable powerline symbol gylphs in status bar
+
+" **** Plugins *******************
+call plug#begin('~/.vim/plugged')
+
+Plug 'morhetz/gruvbox'        " Theme
+Plug 'dense-analysis/ale'     " Linting and stuffs
+Plug 'sheerun/vim-polyglot'   " One language syntax pack for over 100 languages (See: https://github.com/sheerun/vim-polyglot#language-packs)
+Plug 'vim-airline/vim-airline' " Stylish status line for vim
+Plug 'tpope/vim-fugitive'     " Git commands in vim
+
+call plug#end()
+
+" **** Theme Specifics ********
+let g:gruvbox_italic=1
+let g:gruvbox_bold=1
+
+colorscheme gruvbox
+set bg=dark
